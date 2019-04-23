@@ -1,0 +1,66 @@
+<div>
+  Order details
+  <table class="table" id="orders">
+    <thead>
+      <tr>
+        <th>ID </th>
+        <th>Contract</th>
+        <th>Account</th>
+        <th>Positions</th>
+        <th>
+          <button class="btn btn-success btn-sm" (click)="addOrder()">Place New Order</button>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of sampleData;let i = index">
+        <td> {{data.id}}</td>
+        <td> {{data.contract}}</td>
+        <td> {{data.account}}</td>
+        <td> {{data.positions}}</td>
+        <td>
+          <a (click)="edit(data,i)" class="btn btn-primary btn-sm">
+            <i class="fa fa-pencil-square-o"></i> update
+          </a> /
+          <a class="btn btn-danger btn-sm" (click)="delete(i)">
+            <i class="fa fa-trash"></i> delete
+          </a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<ng-template #orderForm>
+  <form>
+    <div class="modal-header">
+      <h4 class="modal-title">Hi there!</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modalRef.close();modalRef = undefined">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label for="id">Id</label>
+        <input type="text" [readonly]="isUpdating" [(ngModel)]="order.id" class="form-control" id="name" placeholder="Name" name="i" required>
+      </div>
+      <div class="form-group">
+        <label for="contract">Contract</label>
+        <input type="text" [(ngModel)]="order.contract" class="form-control" id="quantity" placeholder="contract" name="con" required>
+      </div>
+      <div class="form-group">
+        <label for="account">Account</label>
+        <input type="text" [(ngModel)]="order.account" class="form-control" id="account" placeholder="account" name="acc" required>
+      </div>
+      <div class="form-group">
+        <label for="positions">Positions</label>
+        <input type="positions" [(ngModel)]="order.positions" class="form-control" id="pos" placeholder="positions" name="pos" required>
+      </div>
+    </div>  
+    <div class="modal-footer">
+      <button *ngIf="!isUpdating" class="btn btn-outline-success" (click)="onClick()">Submit</button>
+      <button *ngIf="isUpdating" class="btn btn-outline-success" (click)="onClick()">Update</button>
+      <button type="button" class="btn btn-outline-dark" (click)="modalRef.close();modalRef = undefined">Close</button>
+    </div>
+  </form>
+</ng-template>
