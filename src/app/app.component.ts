@@ -7,8 +7,10 @@ import { AppService } from './app.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  
   title = 'app';
-  constructor(private service: AppService) {
 
-  }
+  // Injecting the service to use service class variables in Template
+  constructor(private service: AppService) { }
+
 }

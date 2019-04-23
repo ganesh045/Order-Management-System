@@ -9,22 +9,27 @@ const TOKEN = 'TOKEN';
 })
 export class LoginComponent {
 
+  // remember the user credentials if he set rememberMe in previous login
   email: string = localStorage.getItem('email');
   password: string = localStorage.getItem('password');
-
   rememberMe: boolean;
-  constructor(private service: AppService, private router: Router) {
-  }
 
+  constructor(private service: AppService, private router: Router) { }
+
+  // go for the login with latest credentials
   tryLogin() {
-    if (this.rememberMe) {
-      localStorage.setItem('email', this.email);
-      localStorage.setItem('password', this.password);
-    }
     this.service.login(this.email, this.password)
       .subscribe(r => {
         if (r.token) {
+          // save current succussfull details of the user
+          if (this.rememberMe) {
+            localStorage.setItem('email', this.email);
+            localStorage.setItem('password', this.password);
+          }
           this.service.isUserLoggedIn = 'true';
+          /* saving the user for session
+          *  (he don't need to relogin to application once again for this browser tab)
+          */
           sessionStorage.setItem('isUserLoggedIn', 'true');
           this.router.navigateByUrl('/orders');
         }
@@ -33,11 +38,8 @@ export class LoginComponent {
       );
   }
 
-  setToken(token: string): void {
-    localStorage.setItem(TOKEN, token);
-  }
-
-  isLogged() {
-    return localStorage.getItem(TOKEN) != null;
+  // check the rememberMe checkbox
+  addCheck(event: any) {
+    this.rememberMe = event.target.checked ? true : false;
   }
 }

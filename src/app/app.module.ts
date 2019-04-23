@@ -9,12 +9,13 @@ import { RouterModule, Routes } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { OrdersComponent } from './orders/orders.component';
 import { NgbModule, NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+
+// defining routes the application with Home as Orders
 const routes: Routes = [
   { path: '', component: OrdersComponent },
   { path: 'login', component: LoginComponent },
   { path: 'orders', component: OrdersComponent },
 ];
-
 
 @NgModule({
   declarations: [
